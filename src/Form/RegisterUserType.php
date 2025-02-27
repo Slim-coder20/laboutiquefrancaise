@@ -39,7 +39,7 @@ class RegisterUserType extends AbstractType
                 'constraints' => [
                     
                 new Length([
-                    'min' => 6,
+                    'min' => 4,
                     'max' => 20
                 ])
             
