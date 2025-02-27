@@ -78,4 +78,45 @@ class RegisterUserType extends AbstractType
                 
                 'hash_property_path' => 'password'],
                 
-      
+                
+                'second_options' => 
+                [
+                'label' => 'Confirmez votre mot de passe',
+                'attr' => [
+                    'placeholder' => 'Confirmez votre mot de passe'
+                ]
+                ],
+               
+                'mapped' => false,
+
+
+
+            ])
+
+
+
+            ->add('submit',SubmitType::class, [
+                'label' => 'inscription', 
+                'attr' => [
+                    'class' => 'btn btn-success'
+                ]
+
+            ])
+        ;
+    }
+
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults([
+            'constraints' => [
+                new UniqueEntity([
+                    'entityClass' => User::class,
+                    'fields' => 'email'
+
+                ])
+
+            ],
+            'data_class' => User::class,
+        ]);
+    }
+}
