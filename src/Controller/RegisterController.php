@@ -2,21 +2,33 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Form\RegisterUserType;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 final class RegisterController extends AbstractController
 {
     #[Route('/inscription', name: 'app_register')]
-    public function index(): Response
+    public function index(Request $request, EntityManagerInterface $em): Response
     {
+        $user = new User();
         
-        // création du formulaire d'inscription // 
-        $form = $this->createForm(RegisterUserType::class); 
+        // instanciation du formulaire d'inscription // 
+        $form = $this->createForm(RegisterUserType::class, $user); 
         
+        // On demande ici à cette fonction (handleRequest) d'aller écouter la request pour aller plus loin // 
+        $form->handleRequest($request);
         
+        // On vérifie que le formulaire est bien saisie et qu'il est valide // 
+        if($form->isSubmitted() && $form->isValid()){
+            // persist permet de figer les données avant de les envoyer vers notre BDD 
+            $em -> persist($user); 
+            $em -> flush(); 
+        }
         
         
         
