@@ -3,9 +3,12 @@
 namespace App\Controller;
 
 use App\Form\PasswordUserType;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 final class AccountController extends AbstractController
 {
@@ -20,10 +23,18 @@ final class AccountController extends AbstractController
     // création d'une nouvelle route pour la modification du mot de pasee Utilisateur // 
 
     #[Route('/compte/modifier-mot-de-passe', name: 'app_account_modify_pwd')]
-    public function password(): Response
-    {
-        $form = $this->createForm(PasswordUserType::class);
-     
+    public function password(Request $request, UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $em): Response
+    {   
+        $user = $this->getUser();
+
+        $form = $this->createForm(PasswordUserType::class, $user, [
+            'passwordHasher' => $passwordHasher 
+        ]);
+        
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+           $em -> flush();
+        }
      
      
      return $this->render('account/password.html.twig',[
