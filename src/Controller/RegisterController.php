@@ -25,10 +25,17 @@ final class RegisterController extends AbstractController
         
         // On vérifie que le formulaire est bien saisie et qu'il est valide // 
         if($form->isSubmitted() && $form->isValid()){
+
             // persist permet de figer les données avant de les envoyer vers notre BDD 
             //dd($form->getData());
             $em -> persist($user); 
             $em -> flush(); 
+            $this ->addFlash(
+
+                'success',
+                'Votre inscription a été bien effectué. Veuillez vous connecter'
+            );
+            return $this->redirectToRoute('app_login');
         }
         
         return $this->render('register/index.html.twig', [
