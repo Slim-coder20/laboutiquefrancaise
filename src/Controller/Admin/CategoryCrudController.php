@@ -2,37 +2,40 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\User;
+use App\Entity\Category;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
 
-class UserCrudController extends AbstractCrudController
+class CategoryCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return User::class;
+        return Category::class;
     }
+
 
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
-            ->setEntityLabelInSingular('Utilisateur')
-            ->setEntityLabelInPlural('Utilisateurs')
+            ->setEntityLabelInSingular('Catégorie')
+            ->setEntityLabelInPlural('Catégories')
             // ...
         ;
     }
 
-    // cette fonction nous permet de gérer les champs du formulaire dans notre interface admin // 
+
     
     public function configureFields(string $pageName): iterable
     {
         return [
-            TextField::new('firstname')->setLabel('Prenom'),
-            TextField::new('lastname')->setLabel('Nom'),
-            TextField::new('email')->setLabel('Email')->onlyOnIndex()
+            TextField::new('name')->setLabel('Titre')->setHelp('Titre de la catégorie'),
+            SlugField::new('slug')->setLabel('URL')->setTargetFieldName('name')->setHelp('URL de votre catégorie générée automatiquement')
+
+         
         ];
     }
     
