@@ -1,8 +1,10 @@
 <?php 
 namespace App\Classe;
 
-use Symfony\Component\HttpFoundation\RequestStack;
 
+
+
+use Symfony\Component\HttpFoundation\RequestStack;
  class Cart{
 
    // ici on a créé un constructeur et on lui injester la RequestStack qui va nous permettre d'aller chercher mes sessions 

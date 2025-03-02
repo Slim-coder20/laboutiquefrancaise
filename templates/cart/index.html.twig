@@ -6,17 +6,42 @@
 		<h1>Mon panier</h1>
 		<div class="row">
 			<div class="col-md-8">
-				Liste de mes produits 
-				<pre>
-					{{ dump(cart)}}
-				</pre>
+				Liste de mes produits
+				<div class="row">
+					{% for product in cart %}
+						<div class="col-md-2">
+							<img src="/uploads/{{product.object.illustration}}" class="img-fluid" alt="{{product.object.name}}">
+						</div>
+						<div class="col-md-6">
+							<strong>{{product.object.name}}</strong>
+							<span class="d-block small ">Prix unitaire:
+								{{ product.object.priceWt|price}}</span>
+						</div>
+						<div class="col-md-2 text-right">
+							{{product.qty}}
+						</div>
+						<div class="col-md-2">
+							<strong>{{ (product.qty * product.object.priceWt)|price}}</strong>
+						</div>
+
+					{% endfor %}
+
+
+				</div>
+
+				{% for prodcut in cart %}
+					{{ dump(cart) }}
+
+				{% endfor %}
+
+
 			</div>
 			<div class="col-md-4">
-				Récap de mon panier 
+				Récap de mon panier
 			</div>
-		
+
 		</div>
-		
+
 
 	</div>
 {% endblock %}
