@@ -38,7 +38,7 @@ class ProductCrudController extends AbstractCrudController
 
     {
         $required = true; 
-        if ($pagename == 'edit'){
+        if ($pageName =='edit'){
             $required = false;
         }
         
@@ -53,8 +53,8 @@ class ProductCrudController extends AbstractCrudController
             ->setHelp('image du produit en 600x600px')
             ->setUploadedFileNamePattern('[year]-[month]-[day]-[contenthash].[extension]')
             ->setBasePath('/uploads')->setUploadDir('/public/uploads')
-            ->setRequired('$required'),
-            
+            ->setRequired('$required')
+            ,
             NumberField::new('price')->setLabel('Prix H.T')->setHelp('Prix Hors taxe du produit sans le sigle €.'),
             ChoiceField::new('tva')->setLabel('Taux de tva')->setChoices([
                 '5.5%' => '5.5', 
