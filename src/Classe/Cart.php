@@ -1,9 +1,7 @@
 <?php 
 namespace App\Classe;
 
-
-
-
+use Doctrine\ORM\Mapping\Id;
 use Symfony\Component\HttpFoundation\RequestStack;
  class Cart{
 
@@ -54,6 +52,20 @@ use Symfony\Component\HttpFoundation\RequestStack;
     {
       return $this->requestStack->getSession()->remove('cart');
 
+    }
+
+    // c'est une fonction qui va nous permettre de retirer des articles dans mon panier // 
+
+    public function decrease($id){
+      $cart = $this->requestStack->getSession()->get('cart');
+      if($cart[$id]['qty'] > 1){
+         $cart[$id]['qty'] =  $cart[$id]['qty'] - 1; 
+      
+      }else {
+         unset($cart[$id]);
+      }
+      $this->requestStack->getSession()->set('cart',$cart);
+     
     }
 
 

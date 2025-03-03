@@ -21,7 +21,7 @@
                                 </div>
                             </div>
                             <div class="col-md-2 d-flex align-items-center justify-content-center">
-                                <p class="mb-0"><strong>{{ product.qty }}</strong></p>
+                                <a href="{{ path('app_cart_decrease', {id : product.object.id})}}">-</a><span class="mb-0 "><strong class="p-2">{{ product.qty }}</strong></span><a class=" p-2 " href="{{ path('app_cart_add', {id : product.object.id})}}">+</a>
                             </div>
                             <div class="col-md-2 d-flex align-items-center justify-content-center">
                                 <p class="mb-0"><strong>{{ (product.qty * product.object.priceWt)|price }}</strong></p>
@@ -29,6 +29,7 @@
                         </div>
                     </div>
                 {% endfor %}
+				<a href="{{'app_cart_remove'}}" class="btn btn-success mt-3">Vider le panier</a>
             </div>
 
             <div class="col-md-4">
