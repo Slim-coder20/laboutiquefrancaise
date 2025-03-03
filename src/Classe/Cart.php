@@ -73,6 +73,10 @@ use Symfony\Component\HttpFoundation\RequestStack;
     public function fullQuantity()
     { 
       
+      if(!isset($cart)){
+         return $quantity; 
+      }
+
       $cart = $this->requestStack->getSession()->get('cart');
       $quantity = 0; 
       foreach ($cart as $product){
@@ -92,6 +96,13 @@ use Symfony\Component\HttpFoundation\RequestStack;
       
       $cart = $this->requestStack->getSession()->get('cart');
       $price = 0; 
+
+        
+      if(!isset($cart)){
+         return $price; 
+      }
+
+      
       foreach ($cart as $product){
         
          $price = $price + ($product ['object']->getPriceWt() * $product['qty']);
