@@ -22,7 +22,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
       $cart = $this->requestStack->getSession()->get('cart');
       
       // Ajouter une quantité +1 à mon produit // 
-      if($cart[$product->getId()]){
+      if(isset($cart[$product->getId()])){
          
          $cart [$product->getId()] = [
             'object' => $product,
