@@ -14,10 +14,10 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 final class AccountController extends AbstractController
 {   
-    private $em;
-    public function __construct(EntityManagerInterface $em)
+    private $entityManager;
+    public function __construct(EntityManagerInterface $entityManager)
     {
-        $this->entityManager = $em; 
+        $this->entityManager = $entityManager; 
 
     }
     
@@ -85,7 +85,7 @@ final class AccountController extends AbstractController
         $form->handleRequest($request);
         
         if($form->isSubmitted() && $form->isValid()){
-            $this->entiityManager->persist($adress); 
+            $this->entityManager->persist($adress); 
             $this->entityManager->flush(); 
             $this ->addFlash(
 
