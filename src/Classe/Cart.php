@@ -68,5 +68,36 @@ use Symfony\Component\HttpFoundation\RequestStack;
      
     }
 
+    // c'est une fonction qui va nous permettre d'avoir la quantité totale de nos produit dans le panier // 
+
+    public function fullQuantity()
+    { 
+      
+      $cart = $this->requestStack->getSession()->get('cart');
+      $quantity = 0; 
+      foreach ($cart as $product){
+        
+         $quantity = $quantity + $product['qty'];
+      }
+     return $quantity; 
+     
+
+    }
+   
+    // Cette fonction nous permettra de calculer le prix TTC de tous nos produits dans le panier // 
+
+    public function getTotalWt()
+    
+    {
+      
+      $cart = $this->requestStack->getSession()->get('cart');
+      $price = 0; 
+      foreach ($cart as $product){
+        
+         $price = $price + ($product ['object']->getPriceWt() * $product['qty']);
+      }
+      return $price; 
+    }
+
 
  }

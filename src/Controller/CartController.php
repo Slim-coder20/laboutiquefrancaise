@@ -17,6 +17,7 @@ final class CartController extends AbstractController
     {
         return $this->render('cart/index.html.twig',[
             'cart' => $cart->getCart(),
+            'totalWt' => $cart->getTotalWt()
         ]);
     }
     
@@ -65,5 +66,12 @@ final class CartController extends AbstractController
 
         return $this->redirectToRoute('app_home');
 
+    }
+
+    // créattion d'une fonction qui nous permettra le prix totale de nos produits dans le panier // 
+
+    public function getTotalWt()
+    {
+        return 100; 
     }
 }
