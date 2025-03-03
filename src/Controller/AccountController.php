@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Adress;
 use App\Form\AdressUserType;
 use App\Form\PasswordUserType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -12,7 +13,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 final class AccountController extends AbstractController
-{
+{   
+    private $em;
+    public function __construct(EntityManagerInterface $em)
+    {
+        $this->entityManager = $em; 
+
+    }
+    
     #[Route('/compte', name: 'app_account')]
     public function index(): Response
     {
@@ -24,7 +32,7 @@ final class AccountController extends AbstractController
     // création d'une nouvelle route pour la modification du mot de pasee Utilisateur // 
 
     #[Route('/compte/modifier-mot-de-passe', name: 'app_account_modify_pwd')]
-    public function password(Request $request, UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $em): Response
+    public function password(Request $request, UserPasswordHasherInterface $passwordHasher): Response
     {   
        
 
@@ -36,7 +44,7 @@ final class AccountController extends AbstractController
         
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
-           $em -> flush();
+           $this->entityManager-> flush();
            $this ->addFlash(
 
             'success',
@@ -66,19 +74,26 @@ final class AccountController extends AbstractController
      */
     
     
-     #[Route('/compte/adresse/ajouter', name: 'app_account_adress_form')]
-    public function adressForm(Request $request, EntityManagerInterface $em): Response
-    {
-        $form = $this->createForm(AdressUserType::class);
+    #[Route('/compte/adresse/ajouter', name: 'app_account_adress_form')]
+    public function adressForm(Request $request): Response
+    {   
+        $adress = New Adress;
+        $adress->setUser($this->getUser());
+        
+        $form = $this->createForm(AdressUserType::class, $adress);
+        
         $form->handleRequest($request);
+        
         if($form->isSubmitted() && $form->isValid()){
-            $em -> persist($user); 
-            $em -> flush(); 
+            $this->entiityManager->persist($adress); 
+            $this->entityManager->flush(); 
             $this ->addFlash(
 
                 'success',
-                "Votre ajout d'adresse a été effectué avec succée"
+                "Votre adresse est correctement sauvegarder"
             );
+            return $this->redirectToRoute('app_account_adresses');
+
         }
         
         

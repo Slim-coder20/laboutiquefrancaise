@@ -59,7 +59,7 @@ class AdressUserType extends AbstractType
             ] )
 
             ->add('submit', SubmitType::class, [
-                'label' => 'Mettre a jour votre adresse',
+                'label' => 'Valider',
                 'attr' => [
                     'class' => 'btn btn-success'
                 ]

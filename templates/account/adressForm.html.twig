@@ -10,7 +10,17 @@
 		</div>
 		<div class="col-md-9">
             <h5 class="py-3">Mes adresses</h5>
-            {{form(adressForm)}}
+            {{form_start(adressForm)}}
+                <div class="row">
+                    <div class="col-md-6">{{form_row(adressForm.firstname)}}</div>
+                    <div class="col-md-6">{{form_row(adressForm.lastname)}}</div>
+                    <div class="col-md-6">{{form_row(adressForm.adress)}}</div>
+                    <div class="col-md-6">{{form_row(adressForm.postal)}}</div>
+                    <div class="col-md-6">{{form_row(adressForm.city)}}</div>
+                    <div class="col-md-6">{{form_row(adressForm.country)}}</div>
+                    <div class="col-md-6">{{form_row(adressForm.phone)}}</div>
+                </div>
+            {{form_end(adressForm)}}
 		</div>
     
     </div>
