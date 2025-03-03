@@ -60,6 +60,18 @@ final class AccountController extends AbstractController
         
      return $this->render('account/adresses.html.twig');
     }
+    /**
+     * Création d'une nouvelle route qui nous servira pour notre formulaire d'adresses 
+     */
+    
+    
+     #[Route('/compte/adresse/ajouter', name: 'app_account_adress_form')]
+    public function adressForm(): Response
+    {
+        
+        
+     return $this->render('account/adressForm.html.twig');
+    }
 
 
 
