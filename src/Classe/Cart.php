@@ -73,12 +73,13 @@ use Symfony\Component\HttpFoundation\RequestStack;
     public function fullQuantity()
     { 
       
+      $cart = $this->requestStack->getSession()->get('cart');
+      $quantity = 0; 
+
       if(!isset($cart)){
          return $quantity; 
       }
-
-      $cart = $this->requestStack->getSession()->get('cart');
-      $quantity = 0; 
+      
       foreach ($cart as $product){
         
          $quantity = $quantity + $product['qty'];
