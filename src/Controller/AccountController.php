@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Form\AdressUserType;
 use App\Form\PasswordUserType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -66,11 +67,24 @@ final class AccountController extends AbstractController
     
     
      #[Route('/compte/adresse/ajouter', name: 'app_account_adress_form')]
-    public function adressForm(): Response
+    public function adressForm(Request $request, EntityManagerInterface $em): Response
     {
+        $form = $this->createForm(AdressUserType::class);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $em -> persist($user); 
+            $em -> flush(); 
+            $this ->addFlash(
+
+                'success',
+                "Votre ajout d'adresse a été effectué avec succée"
+            );
+        }
         
         
-     return $this->render('account/adressForm.html.twig');
+     return $this->render('account/adressForm.html.twig', [
+        'adressForm' => $form
+     ]);
     }
 
 

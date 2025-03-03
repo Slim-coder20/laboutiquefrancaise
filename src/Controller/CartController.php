@@ -64,30 +64,4 @@ final class CartController extends AbstractController
     
 
 
-        return $this->redirectToRoute('app_home');
-
-    }
-
-    // créattion d'une fonction qui nous permettra le prix totale de nos produits dans le panier // 
-
-    public function getTotalWt()
-    {
-      
-        $cart = $this->requestStack->getSession()->get('cart');
-        $price = 0; 
-  
-          
-        if(!isset($cart)){
-           return $price; 
-        }
-  
-        
-        foreach ($cart as $product){
-          
-           $price = $price + ($product ['object']->getPriceWt() * $product['qty']);
-        }
-        return $price; 
-      }
-  
-  
-}
+        return 
