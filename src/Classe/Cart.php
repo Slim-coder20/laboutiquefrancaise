@@ -50,5 +50,11 @@ use Symfony\Component\HttpFoundation\RequestStack;
       return $this->requestStack->getSession()->get('cart');
     }
 
+    public function remove()
+    {
+      return $this->requestStack->getSession()->remove('cart');
+
+    }
+
 
  }
