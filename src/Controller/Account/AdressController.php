@@ -65,7 +65,7 @@ class AdressController extends AbstractController
      public function form (Request $request,$id, AdressRepository $adressRepository): Response
      {   
          if($id){
-             $adress = $adressRepository->findOneBy($id);
+             $adress = $adressRepository->findOneBy(['id' => $id]);
              /**
               * On essaie de sécuriser notre id utilisateur 
               */
