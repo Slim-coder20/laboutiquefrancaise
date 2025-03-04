@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Adress;
 use App\Form\AdressUserType;
 use App\Form\PasswordUserType;
+use App\Repository\AdressRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -74,11 +75,17 @@ final class AccountController extends AbstractController
      */
     
     
-    #[Route('/compte/adresse/ajouter', name: 'app_account_adress_form')]
-    public function adressForm(Request $request): Response
+    #[Route('/compte/adresse/ajouter/{id}', name: 'app_account_adress_form')]
+    public function adressForm(Request $request, $id = null, AdressRepository $adressRepository): Response
     {   
+        if($id){
+            
+        }
+        else{
         $adress = New Adress;
         $adress->setUser($this->getUser());
+        }
+
         
         $form = $this->createForm(AdressUserType::class, $adress);
         
