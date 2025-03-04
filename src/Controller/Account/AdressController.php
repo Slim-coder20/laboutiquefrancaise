@@ -90,9 +90,9 @@ class AdressController extends AbstractController
              $this ->addFlash(
  
                  'success',
-                 "Votre adresse est correctement sauvegarder"
-             );
-             return $this->redirectToRoute('app_account_adresses');
+                 "Votre adresse est correctement sauvegarder" );
+            
+                 return $this->redirectToRoute('app_account_adresses');
  
          }
          
