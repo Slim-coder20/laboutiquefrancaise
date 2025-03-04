@@ -12,7 +12,8 @@
 				<div class="d-flex justify-content-between align-items-center py-3">
 					<h5 class="mb-0 text-primary">Mes adresses</h5>
 				</div>
-				{% if app.user.adresses|length == 0%}
+
+				{% if app.user.adresses|length == 0 %}
 					<p>Vous n'avez pas encore enregistré d'adresse sur la boutique</p>
 				{% else %}
 					<div class="row g-4">
@@ -27,23 +28,22 @@
 											{{ adress.postal }},
 											{{ adress.city }}<br>
 											{{ adress.country }}<br>
-											<a href="{{ path('app_account_adress_form', { id : adress.id})}}" class="small text-secondary btn btn-primary text-white m-3">Editer</a>
-											<a href="{{ path('app_account_adress_delete', { id : adress.id})}}" class="small text-secondary btn btn-primary text-white m-3">Supprimer</a>
 										</p>
-										<a href="{{ path('app_account_adress_form') }}" class="btn btn-primary mt-0">Ajouter une adresse</a>
-
+										<a href="{{ path('app_account_adress_form', { id : adress.id})}}" class="btn btn-primary text-white">Editer</a>
+										<a href="{{ path('app_account_adress_delete', { id : adress.id})}}" class="btn btn-danger text-white">Supprimer</a>
 									</div>
 								</div>
-							{% else %}
-								<p class="text-muted">Aucune adresse enregistrée.</p>
-							{% endfor %}
-						</div>
+							</div>
+						{% endfor %}
+					</div>
+				{% endif %}
 
-
-					{% endif %}
-
-
+				<!-- Bouton "Ajouter une adresse" déplacé en dehors de la boucle -->
+				<div class="text-center mt-4">
+					<a href="{{ path('app_account_adress_form') }}" class="btn btn-success">Ajouter une adresse</a>
 				</div>
+
 			</div>
 		</div>
-	{% endblock %}
+	</div>
+{% endblock %}

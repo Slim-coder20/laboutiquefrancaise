@@ -30,7 +30,7 @@ class AdressController extends AbstractController
     {
         
         
-     return $this->render('account/adresses.html.twig');
+     return $this->render('account/address/index.html.twig');
     }
     /**
      * création d'une route qui sert à supprimer une adresse 
@@ -97,7 +97,7 @@ class AdressController extends AbstractController
          }
          
          
-      return $this->render('account/adressForm.html.twig', [
+      return $this->render('account/address/form.html.twig', [
          'adressForm' => $form
       ]);
      }
