@@ -70,16 +70,49 @@ final class AccountController extends AbstractController
         
      return $this->render('account/adresses.html.twig');
     }
+
+
     /**
-     * Création d'une nouvelle route qui nous servira pour notre formulaire d'adresses 
+     * création d'une route qui sert à supprimer une adresse 
      */
     
     
-    #[Route('/compte/adresse/ajouter/{id}', name: 'app_account_adress_form')]
-    public function adressForm(Request $request, $id = null, AdressRepository $adressRepository): Response
+    #[Route('/compte/adresses/delete/{id}', name: 'app_account_adress_delete')]
+    public function adressesDelete($id, AdressRepository $adressRepository): Response
+    {
+        $adress = $adressRepository->findOneBy(['id' => $id]);
+        if (!$adress OR $adress->getUser() !=  $this->getUser()){
+                
+            return $this->redirectToRoute('app_account_adresses');
+        }
+        $this ->addFlash(
+
+            'success',
+            "Votre adresse est correctement supprimé"
+        );
+        $this->entityManager->remove($adress);
+        $this->entityManager->flush();
+        return $this->redirectToRoute('app_account_adresses');
+    
+    }
+    
+    /**
+     * Création d'une nouvelle route qui nous servira à ajouter ou modifier son adresse  
+     */
+    
+    
+    #[Route('/compte/adresse/ajouter/{id}', name: 'app_account_adress_form', defaults: ['id' => null])]
+    public function adressForm(Request $request,$id, AdressRepository $adressRepository): Response
     {   
         if($id){
-            
+            $adress = $adressRepository->findOneBy($id);
+            /**
+             * On essaie de sécuriser notre id utilisateur 
+             */
+            if (!$adress OR $adress->getUser() !=  $this->getUser()){
+                
+                return $this->redirectToRoute('app_account_adresses');
+            }
         }
         else{
         $adress = New Adress;

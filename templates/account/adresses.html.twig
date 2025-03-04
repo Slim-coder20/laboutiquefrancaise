@@ -12,29 +12,38 @@
 				<div class="d-flex justify-content-between align-items-center py-3">
 					<h5 class="mb-0 text-primary">Mes adresses</h5>
 				</div>
-				<div class="row g-4">
-					{% for adress in app.user.adresses %}
-						<div class="col-md-4">
-							<div class="card shadow-sm border-0">
-								<div class="card-body text-center">
-									<h6 class="card-title fw-bold">{{ adress.firstname }}
-										{{ adress.lastname }}</h6>
-									<p class="card-text">
-										{{ adress.adress }}<br>
-										{{ adress.postal }},
-										{{ adress.city }}<br>
-										{{ adress.country }}<br>
-										<a href="" class="small text-secondary btn btn-primary text-white m-3">Editer</a>
-									</p>
-									<a href="{{ path('app_account_adress_form') }}" class="btn btn-primary mt-0">Ajouter une adresse</a>
+				{% if app.user.adresses|length == 0%}
+					<p>Vous n'avez pas encore enregistré d'adresse sur la boutique</p>
+				{% else %}
+					<div class="row g-4">
+						{% for adress in app.user.adresses %}
+							<div class="col-md-4">
+								<div class="card shadow-sm border-0">
+									<div class="card-body text-center">
+										<h6 class="card-title fw-bold">{{ adress.firstname }}
+											{{ adress.lastname }}</h6>
+										<p class="card-text">
+											{{ adress.adress }}<br>
+											{{ adress.postal }},
+											{{ adress.city }}<br>
+											{{ adress.country }}<br>
+											<a href="{{ path('app_account_adress_form', { id : adress.id})}}" class="small text-secondary btn btn-primary text-white m-3">Editer</a>
+											<a href="{{ path('app_account_adress_delete', { id : adress.id})}}" class="small text-secondary btn btn-primary text-white m-3">Supprimer</a>
+										</p>
+										<a href="{{ path('app_account_adress_form') }}" class="btn btn-primary mt-0">Ajouter une adresse</a>
+
+									</div>
 								</div>
-							</div>
+							{% else %}
+								<p class="text-muted">Aucune adresse enregistrée.</p>
+							{% endfor %}
 						</div>
-					{% else %}
-						<p class="text-muted">Aucune adresse enregistrée.</p>
-					{% endfor %}
+
+
+					{% endif %}
+
+
 				</div>
 			</div>
 		</div>
-	</div>
-{% endblock %}
+	{% endblock %}
