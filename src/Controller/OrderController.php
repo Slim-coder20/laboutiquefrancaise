@@ -49,6 +49,10 @@ final class OrderController extends AbstractController
      public function add(Request $request, Cart $cart): Response
      {    
         
+        if($request->getMethod() != 'POST'){
+            return $this->redirectToRoute('app_cart');
+        }
+
         $form = $this->createForm(OrderType::class, null, [
             
         'adresses' => $this->getUser()->getAdresses(),
