@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Classe\Cart;
+use App\Entity\Order;
 use App\Form\OrderType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -61,6 +62,11 @@ final class OrderController extends AbstractController
     $form->handleRequest($request);
     if($form->isSubmitted() && $form->isValid()){
         
+        $order = new Order();
+        $order->setCreatedAt(new DateTime());
+        $order->setState(1);
+        $order->setCarrierName($form->get('carrier')->getData()->getName());
+        $order->setCarrierPrice($form->get('carrier')->getData()->getPrice());
 
       
     }

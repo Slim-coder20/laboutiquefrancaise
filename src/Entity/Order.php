@@ -59,7 +59,11 @@ class Order
 
         return $this;
     }
-
+    /**
+     * 1 : En attente de paiement 
+     * 2 : Paiement validé 
+     * 3 : Expédié 
+     */
     public function getState(): ?int
     {
         return $this->state;
