@@ -2,10 +2,12 @@
 
 namespace App\Controller;
 
+use App\Classe\Cart;
 use App\Form\OrderType;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 final class OrderController extends AbstractController
 {   
@@ -24,7 +26,8 @@ final class OrderController extends AbstractController
         
         $form = $this->createForm(OrderType::class, null, [
 
-            'adresses' => $adresses
+            'adresses' => $adresses,
+            'action' => $this->generateUrl('app_order_summary')
 
 
         ]);
@@ -33,5 +36,39 @@ final class OrderController extends AbstractController
         return $this->render('order/index.html.twig', [
             'deliveryForm' => $form->createView(),
         ]);
+   
+   }
+    /**
+     * 2ème  étape du tunnel d'achat 
+     * Récap de la commande de l'utilisateur 
+     * Insertion en base de donnée 
+     * préparation du paiement vers stripe 
+     */
+
+     #[Route('/commande/recapitulatif', name: 'app_order_summary')]
+     public function add(Request $request, Cart $cart): Response
+     {    
+        
+        $form = $this->createForm(OrderType::class, null, [
+            
+        'adresses' => $this->getUser()->getAdresses(),
+    
+    ]);
+    $form->handleRequest($request);
+    if($form->isSubmitted() && $form->isValid()){
+        
+
+      
     }
-}
+    
+    return $this->render('order/summary.html.twig',[
+        'choices' => $form->getData(),
+        'cart' => $cart->getCart(),
+        'totalWt' => $cart->getTotalWt()
+    ]);    
+   
+    
+    }
+   
+
+ }
