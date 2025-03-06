@@ -28,9 +28,9 @@ class OrderDetail
 
     #[ORM\Column]
     private ?float $productPrice = null;
-
-    #[ORM\Column]
-    private ?float $prductTva = null;
+    
+    #[ORM\Column(name: "product_tva", type: "float")]
+    private ?float $productTva = null;
 
     public function getId(): ?int
     {
