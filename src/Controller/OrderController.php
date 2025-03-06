@@ -7,6 +7,7 @@ use App\Classe\Cart;
 use App\Entity\Order;
 use App\Form\OrderType;
 use App\Entity\OrderDetail;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -51,7 +52,7 @@ final class OrderController extends AbstractController
      */
 
      #[Route('/commande/recapitulatif', name: 'app_order_summary')]
-     public function add(Request $request, Cart $cart): Response
+     public function add(Request $request, Cart $cart, EntityManagerInterface $entityManager): Response
      {    
         
         if($request->getMethod() != 'POST'){
@@ -98,6 +99,11 @@ final class OrderController extends AbstractController
 
 
         }
+        $entityManager->persist($order);
+        $entityManager->flush();
+        
+
+
 
       
     }
