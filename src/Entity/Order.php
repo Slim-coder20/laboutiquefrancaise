@@ -2,11 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\OrderRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\DBAL\Types\Types;
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\DBAL\Types\Types;
+use App\Repository\OrderRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: OrderRepository::class)]
 #[ORM\Table(name: '`order`')]
@@ -48,7 +49,7 @@ class Order
         return $this->id;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt(): ?DateTimeInterface
     {
         return $this->createdAt;
     }
@@ -81,7 +82,7 @@ class Order
         return $this->carrierName;
     }
 
-    public function setCarrierName(string $carrierName): static
+    public function setCarrierName(string $carrierName)
     {
         $this->carrierName = $carrierName;
 
@@ -93,7 +94,7 @@ class Order
         return $this->carrierPrice;
     }
 
-    public function setCarrierPrice(float $carrierPrice): static
+    public function setCarrierPrice(float $carrierPrice)
     {
         $this->carrierPrice = $carrierPrice;
 
