@@ -66,7 +66,7 @@ final class OrderController extends AbstractController
 
         $form = $this->createForm(OrderType::class, null, [
             
-        'adresses' => $this->getUser()->getAdresses(),
+        'adresses' => $this->getUser()->getAdresses()
     
     ]);
     $form->handleRequest($request);
