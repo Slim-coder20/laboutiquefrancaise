@@ -28,7 +28,7 @@ final class OrderController extends AbstractController
         if(count($adresses) == 0){
             return $this->redirectToRoute('app_account_adress_form');
         }
-        $cart = $cart->getCart();
+        $product = $cart->getCart();
         
         $form = $this->createForm(OrderType::class, null, [
 
@@ -87,7 +87,7 @@ final class OrderController extends AbstractController
         $order->setCarrierPrice($form->get('carrier')->getData()->getPrice());
         $order->setDelivery($address);
 
-        foreach($cart as $product){
+        foreach($products as $product){
 
             $orderDetail = new OrderDetail();
             $orderDetail->setProductName($product['object']->getName());
@@ -110,7 +110,7 @@ final class OrderController extends AbstractController
     
     return $this->render('order/summary.html.twig',[
         'choices' => $form->getData(),
-        'cart' => $cart,
+        'cart' => $products,
         'totalWt' => $cart->getTotalWt()
     ]);    
    
