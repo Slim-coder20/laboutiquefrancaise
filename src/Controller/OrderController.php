@@ -25,10 +25,12 @@ final class OrderController extends AbstractController
     public function index(Cart $cart): Response
     {   
         $adresses = $this->getUser()->getAdresses();
+        
+        
         if(count($adresses) == 0){
             return $this->redirectToRoute('app_account_adress_form');
         }
-        $product = $cart->getCart();
+      
         
         $form = $this->createForm(OrderType::class, null, [
 
@@ -53,11 +55,14 @@ final class OrderController extends AbstractController
 
      #[Route('/commande/recapitulatif', name: 'app_order_summary')]
      public function add(Request $request, Cart $cart, EntityManagerInterface $entityManager): Response
-     {    
+     {   
+        
         
         if($request->getMethod() != 'POST'){
             return $this->redirectToRoute('app_cart');
         }
+        $products = $cart->getCart(); 
+       
 
         $form = $this->createForm(OrderType::class, null, [
             
@@ -65,9 +70,8 @@ final class OrderController extends AbstractController
     
     ]);
     $form->handleRequest($request);
+    
     if($form->isSubmitted() && $form->isValid()){
-        
-        
         /**
          * Création de la chaine adresse : 
          */
@@ -78,34 +82,37 @@ final class OrderController extends AbstractController
         $address.= $addressobj->getPostal().' '.$addressobj->getCity().'<br/>';
         $address.= $addressobj->getCountry().'<br/>';
         $address.= $addressobj->getPhone();
-        
-        //dd($address);
+
+             
+        /**
+         * Stocker la commande et ses détails dans la base de donnée 
+         */
+
+
         $order = new Order();
         $order->setCreatedAt(new \DateTime());
         $order->setState(1);
-        $order->setCarriername($form->get('carrier')->getData()->getName());
-        $order->setCarrierPrice($form->get('carrier')->getData()->getPrice());
+        $order->setCarrierName($form->get('carriers')->getData()->getName());
+        $order->setCarrierPrice($form->get('carriers')->getData()->getPrice());
         $order->setDelivery($address);
-
-        foreach($products as $product){
-
-            $orderDetail = new OrderDetail();
-            $orderDetail->setProductName($product['object']->getName());
-            $orderDetail->setProductIllustration($product['object']->getProductIllustration());
-            $orderDetail->setProductQuantity($product['object']->getProductQuantity());
-            $orderDetail->setProductPrice($product['object']->getProductPrice());
-            $orderDetail->setProductTva($product['qty']);
-            $order->addOrderDetail($orderDetail);
-
-
+      
+        
+        foreach ($products as $product)
+        {
+         
+        $orderDetail = new OrderDetail();
+        $orderDetail->setProductName($product['object']->getName());
+        $orderDetail->setProductIllustration($product['object']->getIllustration());
+        $orderDetail->setProductPrice($product['object']->getPrice());
+        $orderDetail->setProductTva($product['object']->getTva());
+        $orderDetail->setProductQuantity($product['qty']);
+        $order->addOrderDetail($orderDetail);
+       
+    
         }
+        
         $entityManager->persist($order);
         $entityManager->flush();
-        
-
-
-
-      
     }
     
     return $this->render('order/summary.html.twig',[

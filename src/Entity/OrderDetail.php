@@ -97,12 +97,12 @@ class OrderDetail
         return $this;
     }
 
-    public function getPrductTva(): ?float
+    public function getProductTva(): ?float
     {
         return $this->prductTva;
     }
 
-    public function setPrductTva(float $prductTva): static
+    public function setProductTva(float $prductTva): static
     {
         $this->prductTva = $prductTva;
 
