@@ -30,7 +30,7 @@ class OrderDetail
     private ?float $productPrice = null;
     
     #[ORM\Column(name: "product_tva", type: "float")]
-    private ?float $productTva = null;
+    private ?float $productTva = 0;
 
     public function getId(): ?int
     {
@@ -99,12 +99,12 @@ class OrderDetail
 
     public function getProductTva(): ?float
     {
-        return $this->prductTva;
+        return $this->productTva;
     }
 
     public function setProductTva(float $prductTva): static
     {
-        $this->prductTva = $prductTva;
+        $this->productTva = $prductTva;
 
         return $this;
     }

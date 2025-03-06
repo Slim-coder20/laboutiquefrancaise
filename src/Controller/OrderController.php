@@ -90,6 +90,8 @@ final class OrderController extends AbstractController
 
 
         $order = new Order();
+       
+        $order->setUser($this->getUser());
         $order->setCreatedAt(new \DateTime());
         $order->setState(1);
         $order->setCarrierName($form->get('carriers')->getData()->getName());
@@ -99,7 +101,6 @@ final class OrderController extends AbstractController
         
         foreach ($products as $product)
         {
-         
         $orderDetail = new OrderDetail();
         $orderDetail->setProductName($product['object']->getName());
         $orderDetail->setProductIllustration($product['object']->getIllustration());
