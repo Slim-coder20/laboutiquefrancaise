@@ -82,7 +82,7 @@ class Order
         return $this->carrierName;
     }
 
-    public function setCarrierName(string $carrierName)
+    public function setCarrierName(string $carrierName):static 
     {
         $this->carrierName = $carrierName;
 
@@ -94,7 +94,7 @@ class Order
         return $this->carrierPrice;
     }
 
-    public function setCarrierPrice(float $carrierPrice)
+    public function setCarrierPrice(float $carrierPrice):static 
     {
         $this->carrierPrice = $carrierPrice;
 
