@@ -48,6 +48,35 @@ class Order
         $this->orderDetails = new ArrayCollection();
     }
 
+
+    public function getTotalWt()
+    {
+        $totalTTC = 0; 
+        $products = $this->getOrderDetails();
+        
+        foreach($products as $product){
+            
+            $coeff = 1 + ($product->getProductTva() / 100);
+            $totalTTC += ($product->getProductPrice() * $coeff) * $product->getProductQuantity();
+        }
+
+        return $totalTTC;
+
+    }
+
+    public function getTotalTva()
+    
+    {   
+        $products = $this->getOrderDetails();
+        $totalTva = 0; 
+        foreach($products as $product){
+            
+            $coeff = $product->getProductTva() / 100;
+            $totalTva += $product->getProductPrice() * $coeff;
+        }
+        return $totalTva + $this->getCarrierPrice();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -64,11 +93,7 @@ class Order
 
         return $this;
     }
-    /**
-     * 1 : En attente de paiement 
-     * 2 : Paiement validé 
-     * 3 : Expédié 
-     */
+    
     public function getState(): ?int
     {
         return $this->state;
