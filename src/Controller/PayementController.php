@@ -59,7 +59,7 @@ final class PayementController extends AbstractController
           
           ];
          $checkout_session = Session::create ([
-         'customer_email' => $this->getUser()->getEmail(), 
+         'customer_email' => $this->getUser()->getEmail(),
         'line_items' => $product_for_stripe,
         'mode' => 'payment',
         'success_url' => $YOUR_DOMAIN . '/success.html',
