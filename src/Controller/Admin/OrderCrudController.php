@@ -7,6 +7,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
@@ -31,12 +32,32 @@ class OrderCrudController extends AbstractCrudController
     }
     public function configureActions(Actions $actions): Actions
     {
-        return $actions
-           
+            /**
+            * On va ajouter une nouvelle action dans notre interface admin qui va nous permettre de visualisé les détails de la commande de nos utilisateurs . 
+            */
+            $show = Action::new('Afficher')->linkToCrudAction('detail'); 
+            return $actions
+            ->add(Crud::PAGE_INDEX, Action::DETAIL)
             ->remove(Crud::PAGE_INDEX, Action::NEW)
             ->remove(Crud::PAGE_INDEX, Action::EDIT)
             ->remove(Crud::PAGE_INDEX, Action::DELETE)
         ;
+    }
+
+    public function detail(AdminContext $context)
+
+    {
+        $order = $context->getEntity()->getInstance();
+
+        if (!$order) {
+            throw new \Exception('Aucune commande trouvée.');
+        }
+       
+
+        return $this->render('admin/order.html.twig', [
+            'order' => $order
+        ]);
+
     }
     
     public function configureFields(string $pageName): iterable
