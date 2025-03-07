@@ -85,6 +85,19 @@ class OrderDetail
         return $this;
     }
 
+    /**
+     * On créé une méthode qui nous permettre de calculer le prix TTC de notre produit qu'on appellera après dans notre 
+     * boucle foreach de notre class PayementController avec Stripe 
+     */
+
+    public function getProductPriceWt()
+    {
+        $coeff = 1 + ($this->productTva/100);
+        
+        return $coeff * $this->productPrice;
+
+    }
+
     public function getProductPrice(): ?float
     {
         return $this->productPrice;
