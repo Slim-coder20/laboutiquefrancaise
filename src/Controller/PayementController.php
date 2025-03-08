@@ -85,4 +85,18 @@ final class PayementController extends AbstractController
        return $this->redirect($checkout_session->url);
     
     }
+    /**
+     * Création d'une nouvelle route après validation du paiment de la commande client 
+     */
+    #[Route('commande/merci/{id_order}', name: 'app_payement_success')]
+    public function success($id_order, OrderRepository $orderRepository): Response
+    
+    {
+
+
+
+
+
+
+    }
 }
