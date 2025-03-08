@@ -76,7 +76,7 @@ final class PayementController extends AbstractController
         'line_items' => $product_for_stripe,
         'mode' => 'payment',
         'success_url' =>  $_ENV ['DOMAIN'] . '/success.html',
-        'cancel_url' =>  $_ENV ['DOMAIN'] . '/cancel.html',
+        'cancel_url' =>  $_ENV ['DOMAIN'] . '/mon-panier/annulation',
       ]);
       
        
