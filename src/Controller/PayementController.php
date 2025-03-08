@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Repository\OrderRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Stripe\Checkout\Session;
 use Stripe\Stripe;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -12,7 +13,7 @@ use Symfony\Component\Routing\Attribute\Route;
 final class PayementController extends AbstractController
 {
     #[Route('commande/paiement/{id_order}', name: 'app_payement')]
-    public function index($id_order, OrderRepository $orderRepository): Response
+    public function index($id_order, OrderRepository $orderRepository, EntityManagerInterface $entityManager): Response
     {   
       Stripe::setApiKey($_ENV['STRIPE_SECRET_KEY']);
       
@@ -79,8 +80,8 @@ final class PayementController extends AbstractController
         'cancel_url' =>  $_ENV ['DOMAIN'] . '/mon-panier/annulation',
       ]);
       
-       
-       
+      $order->setStripeSessionId($checkout_session->id);
+      $entityManager->flush();
       
        return $this->redirect($checkout_session->url);
     
