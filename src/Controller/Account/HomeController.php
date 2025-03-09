@@ -6,6 +6,7 @@ use App\Entity\Adress;
 use App\Form\AdressUserType;
 use App\Form\PasswordUserType;
 use App\Repository\AdressRepository;
+use App\Repository\OrderRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,11 +24,19 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
     }
     
     #[Route('/compte', name: 'app_account')]
-    public function index(): Response
+    public function index(OrderRepository $orderRepository): Response
     {
+        $orders = $orderRepository->findBy([
+            'user' => $this->getUser(),
+            'state' => [2,3]
+          
+        
+        ]);
         
         
-     return $this->render('account/index.html.twig');
+     return $this->render('account/index.html.twig', [
+            'orders' => $orders
+     ]);
     }
     
     
