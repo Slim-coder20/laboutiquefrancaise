@@ -3,14 +3,14 @@
 
 {% block body %}
 	<div class="container my-5 ">
-		<h1 cla>Espace Membre</h1>
+		<h1 class="text-primary">Espace Membre</h1>
 		<div class="row">
 			<div class="col-md-4">
 				{% include "account/_menu.html.twig" %}
 			</div>
 
 			<div class="col-md-8">
-				<h5>Mes dernières commandes</h5>
+				<h5 class="text-primary">Mes dernières commandes</h5>
 				{% if orders|length == 0 %}
 					<div class="alert alert-info">
 						Vous n'avez passé aucune commande pour le moment.
@@ -32,7 +32,9 @@
 							<tr>
 								<td>{{order.id}}</td>
 								<td>{{ order.createdAt|date('d/m/Y') }}</td>
+								<td>{{ include('admin/state.html.twig', { field : { 'value' : order.state } } ) }}</td>
 								<td>{{order.TotalWt}}</td>
+								<td><a  href="{{ path('app_account_order', { 'id_order' : order.id } ) }}"class="btn btn-primary">Consulter</a></td>
 							</tr>
 						{% endfor %}
 						</tbody>
