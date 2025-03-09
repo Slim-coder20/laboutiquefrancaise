@@ -34,7 +34,7 @@
 								<td>{{ order.createdAt|date('d/m/Y') }}</td>
 								<td>{{ include('admin/state.html.twig', { field : { 'value' : order.state } } ) }}</td>
 								<td>{{order.TotalWt}}</td>
-								<td><a  href="{{ path('app_account_order', { 'id_order' : order.id } ) }}"class="btn btn-primary">Consulter</a></td>
+								<td><a  href="{{ path('app_account_order', { 'id_order' : order.id } ) }}"class="btn btn-primary btn-sm">Consulter</a></td>
 							</tr>
 						{% endfor %}
 						</tbody>
