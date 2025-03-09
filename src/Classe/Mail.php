@@ -27,9 +27,13 @@ public function send($to_email, $to_name, $subject, $content){
                         'Name' => $to_name
                     ]
                 ],
+                'templateID' => 6793674,
+                'TemplateLanguage' => true,
                 'Subject' => $subject,
-                'TextPart' => "Greetings from Mailjet!",
-                'HTMLPart' =>  $content
+                'Variables' => [
+                    'content' => $content
+                ],
+               
             ]
         ]
     ];
