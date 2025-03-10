@@ -20,30 +20,42 @@ class InvoiceController extends AbstractController
     {
         // 1. Vérification de l'objet commande - Existe ?
         $order = $orderRepository->findOneById($id_order);
-
+    
         if (!$order) {
             return $this->redirectToRoute('app_account');
         }
-
+    
         // 2. Vérification de l'objet commande - Ok pour l'utilisateur ?
         if ($order->getUser() != $this->getUser()) {
             return $this->redirectToRoute('app_account');
         }
-
-        $dompdf = new Dompdf();
+    
+        // --- CONFIGURATION DOMPDF ---
+        $options = new Options();
+        $options->set('defaultFont', 'Roboto');
+        $options->set('isHtml5ParserEnabled', true);
+        $options->set('isRemoteEnabled', true);
+        $options->set('isPhpEnabled', true);
+        $options->set('isFontSubsettingEnabled', true);
+    
+        $dompdf = new Dompdf($options);
+    
+        // --- RENDER HTML ---
         $html = $this->renderView('invoice/index.html.twig', [
             'order' => $order
         ]);
+    
         $dompdf->loadHtml($html);
-        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->setPaper('A4', 'portrait'); // Vous pouvez tester aussi 'landscape' si besoin
         $dompdf->render();
-
+    
         $dompdf->stream('facture.pdf', [
             'Attachment' => false
         ]);
-
+    
         exit();
     }
+    
 
 
     /*
@@ -55,23 +67,35 @@ class InvoiceController extends AbstractController
     {
         // 1. Vérification de l'objet commande - Existe ?
         $order = $orderRepository->findOneById($id_order);
-
+    
         if (!$order) {
             return $this->redirectToRoute('admin');
         }
-
-        $dompdf = new Dompdf();
+    
+        // --- CONFIGURATION DOMPDF ---
+        $options = new Options();
+        $options->set('defaultFont', 'Roboto');
+        $options->set('isHtml5ParserEnabled', true);
+        $options->set('isRemoteEnabled', true);
+        $options->set('isPhpEnabled', true);
+        $options->set('isFontSubsettingEnabled', true);
+    
+        $dompdf = new Dompdf($options);
+    
+        // --- RENDER HTML ---
         $html = $this->renderView('invoice/index.html.twig', [
             'order' => $order
         ]);
+    
         $dompdf->loadHtml($html);
         $dompdf->setPaper('A4', 'portrait');
         $dompdf->render();
-
+    
         $dompdf->stream('facture.pdf', [
             'Attachment' => false
         ]);
-
+    
         exit();
     }
+    
 }
