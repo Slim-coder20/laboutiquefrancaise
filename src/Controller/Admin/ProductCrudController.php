@@ -9,6 +9,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
@@ -45,6 +46,7 @@ class ProductCrudController extends AbstractCrudController
         return [
             
             TextField::new('name')->setLabel('Nom')->setHelp('Nom de votre produit'),
+            BooleanField::new('isHomepage')->setLabel('Produit à la une ')->setHelp("Vous permet d'afficher un produit sur la Homepage "),
             SlugField::new('slug')->setTargetFieldName('name')->setLabel('URL')->setHelp('URL de votre produit'),
             TextEditorField::new('description')->setLabel('Description')->setHelp('description de votre produit'),
             
@@ -53,7 +55,7 @@ class ProductCrudController extends AbstractCrudController
             ->setHelp('image du produit en 600x600px')
             ->setUploadedFileNamePattern('[year]-[month]-[day]-[contenthash].[extension]')
             ->setBasePath('/uploads')->setUploadDir('/public/uploads')
-            ->setRequired('$required')
+            ->setRequired($required)
             ,
             NumberField::new('price')->setLabel('Prix H.T')->setHelp('Prix Hors taxe du produit sans le sigle €.'),
             ChoiceField::new('tva')->setLabel('Taux de tva')->setChoices([
