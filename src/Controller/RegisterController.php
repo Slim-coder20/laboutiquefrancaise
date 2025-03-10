@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Classe\Mail;
 use App\Form\RegisterUserType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -35,7 +36,26 @@ final class RegisterController extends AbstractController
                 'success',
                 'Votre inscription a été bien effectué. Veuillez vous connecter'
             );
+
+            /**
+             * Envoie de main de confirmation d'inscription 
+             */
+
+            $mail = new Mail();
+            $vars = [
+                'firstname' => $user->getFirstname(),
+                'lastname' => $user->getLastname()
+            ];
+            $mail->send($user->getEmail(), $user->getFirstname().' '.$user->getLastname(),'Bienvenue sur la boutique Française', 'welcome.html', $vars);
+            
+            
+            
             return $this->redirectToRoute('app_login');
+        
+        
+        
+        
+        
         }
         
         return $this->render('register/index.html.twig', [
