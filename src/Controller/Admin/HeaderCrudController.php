@@ -39,7 +39,7 @@ class HeaderCrudController extends AbstractCrudController
             ->setHelp('image de fond du header en JPEG PNG JPG')
             ->setUploadedFileNamePattern('[year]-[month]-[day]-[contenthash].[extension]')
             ->setBasePath('/uploads')->setUploadDir('/public/uploads')
-            ->setRequired('$required')
+            ->setRequired($required)
             ,
 
            
