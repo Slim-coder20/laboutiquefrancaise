@@ -1,23 +1,32 @@
 <ul class="nav flex-column bg-light p-3 rounded shadow">
-    <li class="nav-item">
-        <a class="nav-link d-flex align-items-center text-dark" href="{{ path('app_account') }}">
-            <i class="fas fa-box-open me-2"></i> Mes commandes
-        </a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link d-flex align-items-center text-dark" href="{{ path('app_account_adresses') }}">
-            <i class="fas fa-map-marker-alt me-2"></i> Mes adresses
-        </a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link d-flex align-items-center text-dark" href="{{ path('app_account_modify_pwd') }}">
-            <i class="fas fa-key me-2"></i> Modifier mon mot de passe
-        </a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link d-flex align-items-center text-danger fw-bold" href="{{ path('app_logout') }}">
-            <i class="fas fa-sign-out-alt me-2"></i> Me déconnecter
-        </a>
-    </li>
+	<li class="nav-item">
+		<a class="nav-link d-flex align-items-center text-dark" href="{{ path('app_account') }}">
+			<i class="fas fa-box-open me-2"></i>
+			Mes commandes
+		</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link d-flex align-items-center text-dark" href="{{ path('app_account_adresses') }}">
+			<i class="fas fa-map-marker-alt me-2"></i>
+			Mes adresses
+		</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link d-flex align-items-center text-dark" href="{{ path('app_account_wishlist') }}">
+			<i class="fas fa-map-marker-alt me-2"></i>
+			Ma liste de souhait
+		</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link d-flex align-items-center text-dark" href="{{ path('app_account_modify_pwd') }}">
+			<i class="fas fa-key me-2"></i>
+			Modifier mon mot de passe
+		</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link d-flex align-items-center text-danger fw-bold" href="{{ path('app_logout') }}">
+			<i class="fas fa-sign-out-alt me-2"></i>
+			Me déconnecter
+		</a>
+	</li>
 </ul>
-

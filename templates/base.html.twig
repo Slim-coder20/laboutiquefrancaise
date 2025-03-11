@@ -40,7 +40,7 @@
 								<a href="{{ path('app_account')}}">
 									<i data-feather="user"></i>
 									{{ app.user.firstname }}</a>
-								<a href="">
+								<a href="{{ path('app_account_wishlist') }}">
 									<i data-feather="heart"></i>
 								</a>
 
@@ -55,9 +55,7 @@
 								<i data-feather="shopping-cart"></i>
 								<span class="badge text-bg-light ">{{fullCartQuantity}}</span>
 							</a>
-							<a href="">
-									<i data-feather="heart"></i>
-							</a>
+							
 
 
 						</div>
