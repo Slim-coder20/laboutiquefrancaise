@@ -8,16 +8,31 @@
 				<img src="/uploads/{{ product.illustration }}" class="img-fluid" alt="{{ product.name}}">
 			</div>
 			<div class="col-md-6">
-                <small><i><a href="{{ path('app_category', { slug : product.category.slug })}}">{{ product.category.name }} </a></i>> {{ product.name }}</small>
+				<small>
+					<i>
+						<a href="{{ path('app_category', { slug : product.category.slug })}}">{{ product.category.name }}
+						</a>
+					</i>>
+					{{ product.name }}</small>
 				<h1>{{ product.name }}</h1>
 				<strong class="d-block my-3">{{ product.priceWt|price}}</strong>
 				{{ product.description|raw }}
-                <a  href="{{ path('app_cart_add', {id : product.id})}}" class=" btn btn-success w-100 my-3 ">Ajouter au panier</a>
+				<div class="d-flex align-items-center justify-content-between mt-3">
+					<a href="{{ path('app_cart_add', {id : product.id})}}" class=" btn btn-success w-100">Ajouter au panier</a>
+					<a data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample" style="margin-left: 5px;">
+						<i data-feather="heart"></i>
+					</a>
+				</div>
+				<div class="collapse" id="collapseExample">
+					<div class="mt-2">
+						Pour utiliser les avantages de la Wishlist,
+						<a href="{{ path('app_login')}}">connectez-vous</a> ou <a href="{{path('app_register')}}">inscrivez-vous</a>
+					</div>
 
 
+				</div>
 			</div>
+
+
 		</div>
-
-
-	</div>
-{% endblock %}
+	{% endblock %}
