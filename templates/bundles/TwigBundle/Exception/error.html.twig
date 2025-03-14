@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+	<div class="container my-5">
+		<h1 class="text-danger">Page introuvable</h1>
+		<p>La page que vous cherchez n'existe pas.</p>
+		<p>Vous pouvez retourner à la
+			<a href="{{ path('app_home') }}">page d'accueil</a>
+			ou vous
+			<a href="{{ path('app_login') }}">connecter</a>.</p>
+	</div>
+{% endblock %}
