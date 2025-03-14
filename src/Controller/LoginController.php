@@ -34,7 +34,7 @@ final class LoginController extends AbstractController
  */
 
     #[Route('/deconnexion', name: 'app_logout', methods:['GET'])]
-    public function logout(): never
+    public function logout(): void
     {
         
 
